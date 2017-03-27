@@ -3,4 +3,5 @@
 ```bash
 composer install
 php artisan admin:install
+php artisan migrate
 ```
