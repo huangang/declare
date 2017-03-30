@@ -5,5 +5,3 @@ composer install
 php artisan admin:install
 php artisan migrate
 ```
-add a little thing to test the git pull
-add a little thing again fro mac pull
