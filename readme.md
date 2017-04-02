@@ -3,5 +3,7 @@
 ```bash
 composer install
 php artisan admin:install
+cp .env.example .env
+php artisan key:generate
 php artisan migrate
 ```
