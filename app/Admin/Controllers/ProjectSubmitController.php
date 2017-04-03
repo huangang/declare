@@ -102,8 +102,7 @@ class ProjectSubmitController extends Controller
                 $grid->actions(function ($actions) {
                     $actions->disableDelete();
                     $actions->disableEdit();
-                    $actions->append('<a href=""><i class="fa fa-paper-plane"></i></a>');
-
+                    $actions->append('<a href="' . config('admin.upload.host') . '/' . $this->row->file .'" target="_blank">下载</a>');
                 });
                 $grid->is_passed('状态')->select([
                     0 => '审核中',
