@@ -13,7 +13,7 @@ use Encore\Admin\Auth\Database\Role;
 class Administrator extends Admin
 {
 
-    protected $fillable = ['username', 'password', 'name', 'avatar', 'mobile', 'student_no', 'email'];
+    protected $fillable = ['username', 'password', 'name', 'avatar', 'mobile', 'student_no', 'email', 'college_id'];
 
     /**
      * Create a new Eloquent model instance.

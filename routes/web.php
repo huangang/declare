@@ -11,12 +11,15 @@
 |
 */
 
+use App\College;
+
 Route::get('/', function () {
     return view('welcome');
 });
 Route::get(config('admin.prefix') . 'auth/register', function () {
     if(empty(Admin::user())){
-        return view('admin.register');
+        $data['colleges'] = College::all();
+        return view('admin.register', $data);
     }
     return redirect('/');
 });

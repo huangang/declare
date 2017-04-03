@@ -102,6 +102,19 @@
         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
       </div>
 
+      <div class="form-group has-feedback {!! !$errors->has('college_id') ?: 'has-error' !!}">
+        @if($errors->has('college_id'))
+          @foreach($errors->get('college_id') as $message)
+            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}</label></br>
+          @endforeach
+        @endif
+        <select class="form-control" placeholder="学院" name="college_id" value="{{ old('college_id') }}"  required>
+          @foreach($colleges as $college)
+            <option value="{{$college->id}}">{{$college->name}}</option>
+          @endforeach
+        </select>
+      </div>
+
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-4 col-md-offset-4">
