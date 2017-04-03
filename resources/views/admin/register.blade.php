@@ -121,6 +121,9 @@
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
         </div>
+        <div class="col-xs-4 help-block">
+          <a href="{{config('admin.prefix') . 'auth/login'}}">登陆</a>
+        </div>
         <!-- /.col -->
       </div>
 

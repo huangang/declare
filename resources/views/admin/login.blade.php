@@ -61,6 +61,9 @@
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('admin::lang.login') }}</button>
         </div>
+        <div class="col-xs-4 help-block">
+          <a href="{{config('admin.prefix') . 'auth/register'}}">注册</a>
+        </div>
         <!-- /.col -->
       </div>
     </form>

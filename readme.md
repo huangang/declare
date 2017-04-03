@@ -6,6 +6,7 @@ php artisan admin:install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
+php artisan db:seed --class=DatabaseSeeder
 ```
 ## 环境要求
 * PHP版本 >= 5.6.4
