@@ -14,9 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/auth/register', function () {
+Route::get(config('admin.prefix') . 'auth/register', function () {
     if(empty(Admin::user())){
         return view('admin.register');
     }
     return redirect('/');
 });
+
+Route::post(config('admin.prefix') . 'auth/register', '\App\Admin\Controllers\RegisterController@create');

@@ -103,7 +103,10 @@ class UserController extends Controller
 
             $form->text('username', trans('admin::lang.username'))->rules('required');
             $form->text('name', trans('admin::lang.name'))->rules('required');
-            $form->image('avatar', trans('admin::lang.avatar'));
+            $form->image('avatar', trans('admin::lang.avatar'))->options(['showRemove' => false])->name(function($file){
+                return time() . rand(1000, 9999) . '.' . $file->guessExtension();
+            });
+
             $form->password('password', trans('admin::lang.password'))->rules('required|confirmed');
             $form->password('password_confirmation', trans('admin::lang.password_confirmation'))->rules('required')
                 ->default(function ($form) {
