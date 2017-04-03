@@ -15,5 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/auth/register', function () {
-    return view('admin.register');
+    if(empty(Admin::user())){
+        return view('admin.register');
+    }
+    return redirect('/');
 });

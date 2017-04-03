@@ -103,6 +103,8 @@ class ProjectSubmitController extends Controller
                     }
                 });
             }else{
+                $grid->disableCreation();
+
                 $grid->tools(function ($tools) {
                     $tools->batch(function ($batch) {
                         $batch->disableDelete();
@@ -150,7 +152,7 @@ class ProjectSubmitController extends Controller
             });
             $form->text('tutor', '指导老师');
             $form->display('id', 'ID');
-            $form->hidden('is_passed');
+            $form->hidden('is_passed')->default(0);
             $form->hidden('user_id')->default(Admin::user()->id);
             $form->display('created_at', '创建时间');
             $form->display('updated_at', '更新时间');
