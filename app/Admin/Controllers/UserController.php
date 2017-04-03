@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\College;
 use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Auth\Database\Permission;
 use Encore\Admin\Auth\Database\Role;
@@ -117,7 +118,15 @@ class UserController extends Controller
 
             $form->multipleSelect('roles', trans('admin::lang.roles'))->options(Role::all()->pluck('name', 'id'));
             $form->multipleSelect('permissions', trans('admin::lang.permissions'))->options(Permission::all()->pluck('name', 'id'));
-
+            $form->text('student_no','学号');
+            $form->mobile('mobile','手机号码');
+            $form->email('email', '邮箱');
+            $colleges = College::all();
+            $options = [];
+            foreach ($colleges as $college){
+                $options[$college->id] = $college->name;
+            }
+            $form->select('college_id', '学院')->options($options);
             $form->display('created_at', trans('admin::lang.created_at'));
             $form->display('updated_at', trans('admin::lang.updated_at'));
 

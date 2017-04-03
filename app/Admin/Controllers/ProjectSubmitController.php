@@ -2,11 +2,10 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Traits\RoleTrait;
 use App\Project;
 use App\ProjectSubmit;
 
-use App\RoleUser;
-use Encore\Admin\Auth\Database\Role;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Facades\Admin;
@@ -16,9 +15,8 @@ use Encore\Admin\Controllers\ModelForm;
 
 class ProjectSubmitController extends Controller
 {
-    use ModelForm;
+    use ModelForm, RoleTrait;
 
-    protected $role;
 
     /**
      * Index interface.
@@ -34,15 +32,6 @@ class ProjectSubmitController extends Controller
 
             $content->body($this->grid());
         });
-    }
-
-    public function getRole()
-    {
-        if(empty($this->role)){
-            $roleUser = RoleUser::where('user_id', Admin::user()->id)->first();
-            $this->role = Role::find($roleUser->role_id);
-        }
-        return $this->role;
     }
 
     /**
