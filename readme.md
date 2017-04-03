@@ -15,3 +15,7 @@ php artisan db:seed --class=DatabaseSeeder
 * PHP扩展：Mbstring
 * PHP扩展：Tokenizer
 * PHP扩展：XML
+
+## 其他
+如果不能命令行执行则把`declare.sql`导入数据库   
+默认管理员帐号密码都为`admin`
