@@ -145,5 +145,11 @@ INSERT INTO `admin_user_permissions` VALUES
 ('2', '7', null, null);
 COMMIT;
 
+-- ----------------------------
+--  Records of `colleges`
+-- ----------------------------
+BEGIN;
+INSERT INTO `colleges` VALUES ('1', '杭州国际服务工程学院', '2017-04-02 22:00:11', '2017-04-02 22:00:11');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
