@@ -11,5 +11,9 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
-    $router->resource('category', CategoryController::class);
+    $router->resource('college', CollegeController::class);
+    $router->resource('project', ProjectController::class);
+    $router->resource('submit', ProjectSubmitController::class);
+    $router->resource('auth/users', UserController::class);
+
 });

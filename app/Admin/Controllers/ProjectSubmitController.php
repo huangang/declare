@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Category;
+use App\ProjectSubmit;
 
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -11,7 +11,7 @@ use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
 
-class CategoryController extends Controller
+class ProjectSubmitController extends Controller
 {
     use ModelForm;
 
@@ -24,8 +24,8 @@ class CategoryController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('分类');
-            $content->description('列表');
+            $content->header('header');
+            $content->description('description');
 
             $content->body($this->grid());
         });
@@ -57,8 +57,8 @@ class CategoryController extends Controller
     {
         return Admin::content(function (Content $content) {
 
-            $content->header('分类');
-            $content->description('添加');
+            $content->header('header');
+            $content->description('description');
 
             $content->body($this->form());
         });
@@ -71,12 +71,12 @@ class CategoryController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(Category::class, function (Grid $grid) {
+        return Admin::grid(ProjectSubmit::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
-            $grid->name('分类名');
-            $grid->created_at('创建时间');
-            $grid->updated_at('更新时间');
+
+            $grid->created_at();
+            $grid->updated_at();
         });
     }
 
@@ -87,13 +87,12 @@ class CategoryController extends Controller
      */
     protected function form()
     {
-        return Admin::form(Category::class, function (Form $form) {
+        return Admin::form(ProjectSubmit::class, function (Form $form) {
 
-            $form->text('name', '分类名');
-            $form->display('id', 'id');
+            $form->display('id', 'ID');
+
             $form->display('created_at', '创建时间');
             $form->display('updated_at', '更新时间');
-
         });
     }
 }
