@@ -11,6 +11,17 @@
 |
 */
 
+use App\College;
+
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get(config('admin.prefix') . 'auth/register', function () {
+    if(empty(Admin::user())){
+        $data['colleges'] = College::all();
+        return view('admin.register', $data);
+    }
+    return redirect('/');
+});
+
+Route::post(config('admin.prefix') . 'auth/register', '\App\Admin\Controllers\RegisterController@create');

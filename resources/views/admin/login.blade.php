@@ -18,8 +18,8 @@
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
 <body class="hold-transition login-page">
@@ -60,6 +60,9 @@
         <div class="col-xs-4 col-md-offset-4">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('admin::lang.login') }}</button>
+        </div>
+        <div class="col-xs-4 help-block">
+          <a href="{{config('admin.prefix') . 'auth/register'}}">注册</a>
         </div>
         <!-- /.col -->
       </div>

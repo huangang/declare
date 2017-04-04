@@ -17,8 +17,8 @@ class CreateProjectsTable extends Migration
             $table->increments('id')->comment('项目ID');
             $table->string('name', 20)->index()->comment('项目名');
             $table->text('body')->comment('项目描述');
-            $table->date('start_time')->comment('开始时间');
-            $table->date('end_time')->comment('结束时间');
+            $table->timestamp('start_time')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('开始时间');
+            $table->timestamp('end_time')->default(DB::raw('CURRENT_TIMESTAMP'))->comment('结束时间');
             $table->timestamps();
         });
     }

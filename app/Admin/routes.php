@@ -14,6 +14,8 @@ Route::group([
     $router->resource('college', CollegeController::class);
     $router->resource('project', ProjectController::class);
     $router->resource('submit', ProjectSubmitController::class);
-    $router->resource('auth/users', UserController::class);
+    $router->put('auth/setting', 'AuthController@putSetting');
+    $router->get('auth/setting', 'AuthController@getSetting');
 
+    $router->resource('auth/users', UserController::class);
 });

@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\College;
 use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Auth\Database\Permission;
 use Encore\Admin\Auth\Database\Role;
@@ -103,7 +104,10 @@ class UserController extends Controller
 
             $form->text('username', trans('admin::lang.username'))->rules('required');
             $form->text('name', trans('admin::lang.name'))->rules('required');
-            $form->image('avatar', trans('admin::lang.avatar'));
+            $form->image('avatar', trans('admin::lang.avatar'))->options(['showRemove' => false])->name(function($file){
+                return time() . rand(1000, 9999) . '.' . $file->guessExtension();
+            });
+
             $form->password('password', trans('admin::lang.password'))->rules('required|confirmed');
             $form->password('password_confirmation', trans('admin::lang.password_confirmation'))->rules('required')
                 ->default(function ($form) {
@@ -114,7 +118,15 @@ class UserController extends Controller
 
             $form->multipleSelect('roles', trans('admin::lang.roles'))->options(Role::all()->pluck('name', 'id'));
             $form->multipleSelect('permissions', trans('admin::lang.permissions'))->options(Permission::all()->pluck('name', 'id'));
-
+            $form->text('student_no','学号');
+            $form->mobile('mobile','手机号码');
+            $form->email('email', '邮箱');
+            $colleges = College::all();
+            $options = [];
+            foreach ($colleges as $college){
+                $options[$college->id] = $college->name;
+            }
+            $form->select('college_id', '学院')->options($options);
             $form->display('created_at', trans('admin::lang.created_at'));
             $form->display('updated_at', trans('admin::lang.updated_at'));
 
