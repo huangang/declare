@@ -75,10 +75,11 @@ class ProjectSubmitController extends Controller
     protected function grid()
     {
         return Admin::grid(ProjectSubmit::class, function (Grid $grid) {
-
             $grid->id('ID')->sortable();
+            $grid->project('项目')->display(function ($project) {
+                return $project['name'];
+            });
             $grid->title('标题');
-
             if($this->getRole()->slug !== 'administrator'){
                 $grid->model()->where('user_id', Admin::user()->id);
                 $grid->is_passed('状态')->display(function ($value) {
@@ -93,7 +94,6 @@ class ProjectSubmitController extends Controller
                 });
             }else{
                 $grid->disableCreation();
-
                 $grid->tools(function ($tools) {
                     $tools->batch(function ($batch) {
                         $batch->disableDelete();
@@ -103,6 +103,10 @@ class ProjectSubmitController extends Controller
                     $actions->disableDelete();
                     $actions->disableEdit();
                     $actions->append('<a href="' . config('admin.upload.host') . '/' . $this->row->file .'" target="_blank">下载</a>');
+                });
+
+                $grid->user('用户')->display(function ($user) {
+                    return $user['name'];
                 });
                 $grid->is_passed('状态')->select([
                     0 => '审核中',
@@ -136,6 +140,7 @@ class ProjectSubmitController extends Controller
             $form->text('title', '标题');
             $form->textarea('body', '描述');
             $form->file('file', '附件')->options(['showRemove' => false])->name(function($file){
+                /** @var  \Illuminate\Http\UploadedFile $file */
                 return time() . rand(1000, 9999) . '.' . $file->guessExtension();
             });
             $form->text('tutor', '指导老师');

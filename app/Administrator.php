@@ -24,4 +24,12 @@ class Administrator extends Admin
     {
         parent::__construct($attributes);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function submit()
+    {
+        return $this->hasMany(ProjectSubmit::class);
+    }
 }
