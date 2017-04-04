@@ -57,12 +57,13 @@
       <div class="row">
 
         <!-- /.col -->
-        <div class="col-xs-4 col-md-offset-4">
+        <div class="">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('admin::lang.login') }}</button>
+          <button type="submit" class="btn btn-primary btn-block ">{{ trans('admin::lang.login') }}</button>
         </div>
-        <div class="col-xs-4 help-block">
-          <a href="{{config('admin.prefix') . 'auth/register'}}">注册</a>
+        <br>
+        <div class="col-md-offset-4">
+          <a href="{{config('admin.prefix') . 'auth/register'}}">还没有账号？点此注册</a>
         </div>
         <!-- /.col -->
       </div>
