@@ -29,27 +29,27 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">注册</p>
+    <p class="login-box-msg">用户注册</p>
 
     <form class="form-horizontal" role="form" method="POST" action="{{config('admin.prefix') . 'auth/register'}}" >
-      <div class="form-group has-feedback {!! !$errors->has('username') ?: 'has-error' !!}">
+      <div class="form-group has-feedback {{ $errors->has('username') ? ' has-error' : '' }}">
 
-        @if($errors->has('username'))
-          @foreach($errors->get('username') as $message)
-            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}</label></br>
-          @endforeach
+        @if ($errors->has('username'))
+          <span class="help-block">
+              <strong>{{ $errors->first('username') }}</strong>
+          </span>
         @endif
 
         <input type="input" class="form-control" placeholder="用户名" name="username" value="{{ old('username') }}" required>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
 
-      <div class="form-group has-feedback {!! !$errors->has('name') ?: 'has-error' !!}">
+      <div class="form-group has-feedback {{ $errors->has('name') ? ' has-error' : '' }}">
 
-        @if($errors->has('name'))
-          @foreach($errors->get('name') as $message)
-            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}</label></br>
-          @endforeach
+        @if ($errors->has('name'))
+          <span class="help-block">
+            <strong>{{ $errors->first('name') }}</strong>
+          </span>
         @endif
 
         <input type="input" class="form-control" placeholder="真实用户名" name="name" value="{{ old('name') }}" required>
@@ -57,11 +57,11 @@
       </div>
 
 
-      <div class="form-group has-feedback {!! !$errors->has('password') ?: 'has-error' !!}">
-        @if($errors->has('password'))
-          @foreach($errors->get('password') as $message)
-            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}</label></br>
-          @endforeach
+      <div class="form-group has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
+        @if ($errors->has('password'))
+          <span class="help-block">
+            <strong>{{ $errors->first('password') }}</strong>
+          </span>
         @endif
         <input type="password" class="form-control" placeholder="密码" name="password" value="{{ old('username') }}" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -72,41 +72,41 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
 
-      <div class="form-group has-feedback {!! !$errors->has('student_no') ?: 'has-error' !!}">
-        @if($errors->has('student_no'))
-          @foreach($errors->get('student_no') as $message)
-            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}</label></br>
-          @endforeach
+      <div class="form-group has-feedback {{ $errors->has('student_no') ? ' has-error' : '' }}">
+        @if ($errors->has('student_no'))
+          <span class="help-block">
+            <strong>{{ $errors->first('student_no') }}</strong>
+          </span>
         @endif
         <input type="text" class="form-control" placeholder="学号" name="student_no" value="{{ old('student_no') }}" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
 
-      <div class="form-group has-feedback {!! !$errors->has('email') ?: 'has-error' !!}">
-        @if($errors->has('email'))
-          @foreach($errors->get('email') as $message)
-            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}</label></br>
-          @endforeach
+      <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
+        @if ($errors->has('email'))
+          <span class="help-block">
+            <strong>{{ $errors->first('email') }}</strong>
+          </span>
         @endif
         <input type="email" class="form-control" placeholder="邮箱" name="email" value="{{ old('email') }}" required>
         <span class="glyphicon glyphicon-send form-control-feedback"></span>
       </div>
 
-      <div class="form-group has-feedback {!! !$errors->has('mobile') ?: 'has-error' !!}">
-        @if($errors->has('mobile'))
-          @foreach($errors->get('mobile') as $message)
-            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}</label></br>
-          @endforeach
+      <div class="form-group has-feedback {{ $errors->has('mobile') ? ' has-error' : '' }}">
+        @if ($errors->has('mobile'))
+          <span class="help-block">
+            <strong>{{ $errors->first('mobile') }}</strong>
+          </span>
         @endif
         <input type="text" class="form-control" placeholder="手机" name="mobile" value="{{ old('mobile') }}" required>
         <span class="glyphicon glyphicon-phone form-control-feedback"></span>
       </div>
 
-      <div class="form-group has-feedback {!! !$errors->has('college_id') ?: 'has-error' !!}">
-        @if($errors->has('college_id'))
-          @foreach($errors->get('college_id') as $message)
-            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i>{{$message}}</label></br>
-          @endforeach
+      <div class="form-group has-feedback {{ $errors->has('college_id') ? ' has-error' : '' }}">
+        @if ($errors->has('college_id'))
+          <span class="help-block">
+           <strong>{{ $errors->first('college_id') }}</strong>
+          </span>
         @endif
         <select class="form-control" placeholder="学院" name="college_id" value="{{ old('college_id') }}"  required>
           @foreach($colleges as $college)
@@ -117,14 +117,15 @@
 
       <div class="row">
         <!-- /.col -->
-        <div class="col-xs-4 col-md-offset-4">
+        <div class="">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
+          <button type="submit" class="btn btn-primary btn-block ">注册</button>
         </div>
-        <div class="col-xs-4 help-block">
-          <a href="{{config('admin.prefix') . 'auth/login'}}">登陆</a>
+        <br>
+        <div class="col-md-offset-4">
+          <a href="{{config('admin.prefix') . 'auth/login'}}">已有账号？点此登录</a>
+          <!-- /.col -->
         </div>
-        <!-- /.col -->
       </div>
 
     </form>
