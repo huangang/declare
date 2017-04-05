@@ -83,13 +83,20 @@ class ProjectSubmitController extends Controller
             if($this->getRole()->slug !== 'administrator'){
                 $grid->model()->where('user_id', Admin::user()->id);
                 $grid->is_passed('状态')->display(function ($value) {
-                    if($value == 0){
+                    if($value == ProjectSubmit::IN_REVIEW){
                         return "<span style='color:blue'>审核中</span>";
-                    }elseif($value == 1){
+                    }elseif($value == ProjectSubmit::PASS){
                         return "<span style='color:green'>通过</span>";
                     }else{
                         return "<span style='color:red'>未通过</span>";
 
+                    }
+                });
+                $grid->actions(function ($actions) {
+                    if($actions->row->is_passed == ProjectSubmit::PASS || $actions->row->project['end_time'] < date('Y-m-d')){
+                        $actions->disableDelete();
+                        $actions->disableEdit();
+                        $actions->append('<a href="' . config('admin.upload.host') . '/' . $this->row->file .'" target="_blank">下载</a>');
                     }
                 });
             }else{
@@ -109,9 +116,9 @@ class ProjectSubmitController extends Controller
                     return $user['name'];
                 });
                 $grid->is_passed('状态')->select([
-                    0 => '审核中',
-                    1 => '通过',
-                    -1 => '未通过',
+                    ProjectSubmit::IN_REVIEW => '审核中',
+                    ProjectSubmit::PASS => '通过',
+                    ProjectSubmit::NOT_PASS => '未通过',
                 ]);
 
             }
