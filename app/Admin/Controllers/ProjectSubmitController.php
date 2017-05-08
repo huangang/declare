@@ -74,13 +74,24 @@ class ProjectSubmitController extends Controller
      */
     protected function grid()
     {
+
         return Admin::grid(ProjectSubmit::class, function (Grid $grid) {
             $grid->id('ID')->sortable();
-            $grid->project('项目')->display(function ($project) {
-                return $project['name'];
-            });
-            $grid->title('标题');
+            $grid->project()->name('项目类型');
+            $grid->title('作品名称');
+//            $grid->end_time('截止时间')->display(function ()  {
+//                // echo $end_time  = (String) $project['end_time'];
+//                return '前往首页查看';
+//            });
+            $grid->body('作品描述')->limit(20);
             if($this->getRole()->slug !== 'administrator'){
+                $grid->disableExport();
+                $grid->tools(function ($tools) {
+                    $tools->batch(function ($batch) {
+                        $batch->disableDelete();
+                    });
+                });
+                $grid->project()->end_time('截止时间');
                 $grid->model()->where('user_id', Admin::user()->id);
                 $grid->is_passed('状态')->display(function ($value) {
                     if($value == ProjectSubmit::IN_REVIEW){
@@ -89,7 +100,6 @@ class ProjectSubmitController extends Controller
                         return "<span style='color:green'>通过</span>";
                     }else{
                         return "<span style='color:red'>未通过</span>";
-
                     }
                 });
                 $grid->actions(function ($actions) {
@@ -100,19 +110,15 @@ class ProjectSubmitController extends Controller
                     }
                 });
             }else{
+                $grid->exporter(new CustomExporter());
+                //grid()->exporter(new CustomExporter());
                 $grid->disableCreation();
-                $grid->tools(function ($tools) {
-                    $tools->batch(function ($batch) {
-                        $batch->disableDelete();
-                    });
-                });
                 $grid->actions(function ($actions) {
                     $actions->disableDelete();
                     $actions->disableEdit();
                     $actions->append('<a href="' . config('admin.upload.host') . '/' . $this->row->file .'" target="_blank">下载</a>');
                 });
-
-                $grid->user('用户')->display(function ($user) {
+                $grid->user('提交用户')->display(function ($user) {
                     return $user['name'];
                 });
                 $grid->is_passed('状态')->select([
@@ -122,6 +128,9 @@ class ProjectSubmitController extends Controller
                 ]);
 
             }
+            $grid->filter(function ($filter) {
+                $filter->like('project.name', '项目名称');
+            });
             $grid->created_at('创建时间');
             $grid->updated_at('更新时间');
         });
